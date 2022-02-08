@@ -1,9 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { decryptData, getPasswordHash } from 'utils';
+import { Bookmark } from 'type';
 
 function App() {
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    async function load() {
+      const syncId = 'xxx';
+      const { bookmarks } = await (
+        await fetch(`https://api.xbrowsersync.org/bookmarks/${syncId}`)
+      ).json();
+      console.log(bookmarks);
+      const passwordHash = await getPasswordHash('xxx', syncId);
+      const data = await decryptData(bookmarks, passwordHash);
+      const bookmarkItems: Bookmark[] = JSON.parse(data);
+
+      console.log(bookmarkItems);
+    }
+    load();
+  }, []);
 
   return (
     <div className="App">
