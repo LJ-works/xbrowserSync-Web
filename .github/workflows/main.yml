@@ -32,13 +32,25 @@ jobs:
       - run: yarn lint
       - run: yarn build
       
-      - name: GitHub Pages
-        # You may pin to the exact commit or the version.
-        # uses: crazy-max/ghaction-github-pages@a117e4aa1fb4854d021546d2abdfac95be568a3a
-        uses: crazy-max/ghaction-github-pages@v2.6.0
+#       - name: GitHub Pages
+#         # You may pin to the exact commit or the version.
+#         # uses: crazy-max/ghaction-github-pages@a117e4aa1fb4854d021546d2abdfac95be568a3a
+#         uses: crazy-max/ghaction-github-pages@v2.6.0
+#         with:
+#           keep_history: true
+#           # Build directory to deploy
+#           build_dir: dist
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: GitHub Pages action
+        uses: peaceiris/actions-gh-pages@v3.7.3
         with:
-          keep_history: true
-          # Build directory to deploy
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+
+
+
+
+
+
