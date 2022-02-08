@@ -9,4 +9,5 @@ export default defineConfig({
     open: '/index.html',
     https: true,
   },
+  base: 'xbrowserSync-Web',
 });
