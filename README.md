@@ -1,4 +1,4 @@
-# 🚀 Welcome to your new awesome project!
+preview: https://lj-works.github.io/xbrowserSync-Web/
 
 This project has been created using **webpack-cli**, you can now run
 
@@ -13,3 +13,5 @@ yarn build
 ```
 
 to bundle your application
+
+Note: please run this app under https
