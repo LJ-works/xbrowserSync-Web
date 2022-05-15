@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Bookmark, BookmarkFolder, BookmarkUrl } from 'type';
 import { decryptData, getPasswordHash } from 'utils';
 import './App.css';
+import QrScanner from 'qr-scanner';
 
 export default function App() {
   const [syncId, setSyncId] = useState('');
   const [password, setPassword] = useState('');
   const [bookmarkItems, setBookmarkItems] = useState<Bookmark[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const refVideo = useRef<HTMLVideoElement>(null);
 
   async function load(syncId: string, passwordHash: string) {
     setLoading(true);
@@ -43,11 +46,27 @@ export default function App() {
     load(syncId, passwordHash);
   }
 
+  function scanQR() {
+    if (!refVideo.current) {
+      return;
+    }
+    const scanner = new QrScanner(
+      refVideo.current,
+      (result) => console.log(JSON.stringify(result)),
+      {},
+    );
+    scanner.start();
+  }
+
   return (
     <div>
       <div>
         <span>syncId:</span>
         <input value={syncId} onChange={(e) => setSyncId(e.target.value)} />
+        <button onClick={() => scanQR()}>Scan QRCode</button>
+        <div>
+          <video ref={refVideo}></video>
+        </div>
       </div>
       <div>
         <span>password:</span>
